@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="combined.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>推荐内容 - Kyaru</title>
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="head">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Img/logo.png" alt="web_logo" width="60px" height="60px">
+            </a>
+        </div>
+        <div class="nav">
+            <a href="index.html#home">主页</a>
+            <a href="index.html#about">关于</a>
+            <a href="recommendations.html" class="active">推荐</a>
+            <a href="mailto:kyaru_pj@foxmail.com">联系我们</a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="搜索...">
+            <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
+        </div>
+
+        <div class="auth-buttons">
+            <button id="loginBtn" class="login-btn" onclick="window.location.href='login.html'">登录</button>
+            <button id="registerBtn" class="register-btn" onclick="window.location.href='register.html'">注册</button>
+        </div>
+
+        <!-- 用户中心区域 -->
+        <div id="userCenter" class="user-center" style="display: none;">
+            <div class="user-info-display">
+                <div class="user-avatar">
+                    <img src="https://picsum.photos/seed/avatar/100/100.jpg" alt="用户头像">
+                </div>
+                <div class="user-details">
+                    <span class="user-name" id="userName">用户名</span>
+                    <div class="user-stats">
+                        <div class="user-level">等级: Lv.<span id="userLevel">1</span></div>
+                        <div class="user-exp">
+                            <span>经验值: <span id="userExp">0</span></span>
+                            <div class="exp-bar">
+                                <div class="exp-progress" id="expProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    <a href="#" class="action-btn"><i class="fa fa-user"></i></a>
+                    <a href="#" class="action-btn"><i class="fa fa-cog"></i></a>
+                    <a href="#" class="action-btn" id="logoutBtn"><i class="fa fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 签到按钮 -->
+        <div id="checkinTop" class="checkin-top" style="display: none;">
+            <button id="checkinBtnTop" class="checkin-btn-top">
+                <i class="fa fa-calendar-check"></i> 签到
+            </button>
+        </div>
+
+        <!-- 挂机按钮 -->
+        <div id="idleTop" class="idle-top">
+            <button id="idleBtnTop" class="idle-btn-top" onclick="window.location.href='idle.html'">
+                <i class="fa fa-gamepad"></i> 挂机
+            </button>
+        </div>
+
+
+    </div>
+
+    <div id="searchResults" class="search-results" style="display: none;">
+        <div class="search-header">
+            <h3>搜索结果</h3>
+            <div class="search-actions">
+                <a href="recommendations.html" class="home-btn"><i class="fa fa-home"></i> 返回主页</a>
+                <button id="closeSearch" class="close-search"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <iframe id="searchFrame" src="" frameborder="0"></iframe>
+    </div>
+
+    <!-- 推荐内容区域 -->
+    <div class="content-section">
+        <div class="container">
+            <h2>推荐内容</h2>
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime1/300/450.jpg" alt="推荐1">
+                    <div class="recommendation-info">
+                        <h3>葬送的芙莉莲</h3>
+                        <p>勇者小队击败魔王后，长生种精灵魔法使芙莉莲踏上理解人类的旅程</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.5</span>
+                            <span class="genre">奇幻</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime2/300/450.jpg" alt="推荐2">
+                    <div class="recommendation-info">
+                        <h3>我的青春恋爱物语果然有问题</h3>
+                        <p>孤僻高中生比企谷八幡用扭曲的方式解决他人青春烦恼的故事</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.2</span>
+                            <span class="genre">校园</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime3/300/450.jpg" alt="推荐3">
+                    <div class="recommendation-info">
+                        <h3>间谍过家家</h3>
+                        <p>间谍"黄昏"为执行任务与杀手、超能力者组成临时家庭的温馨喜剧</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.3</span>
+                            <span class="genre">喜剧</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime4/300/450.jpg" alt="推荐4">
+                    <div class="recommendation-info">
+                        <h3>进击的巨人</h3>
+                        <p>人类与巨人的生存之战，揭示世界的真相</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.6</span>
+                            <span class="genre">动作</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime5/300/450.jpg" alt="推荐5">
+                    <div class="recommendation-info">
+                        <h3>鬼灭之刃</h3>
+                        <p>大正时代，少年炭治郎为拯救变成鬼的妹妹踏上灭鬼之路</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.4</span>
+                            <span class="genre">冒险</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendation-card">
+                    <img src="https://picsum.photos/seed/anime6/300/450.jpg" alt="推荐6">
+                    <div class="recommendation-info">
+                        <h3>紫罗兰永恒花园</h3>
+                        <p>战后，作为"战争兵器"长大的少女薇尔莉特理解"爱"的含义</p>
+                        <div class="recommendation-meta">
+                            <span class="rating"><i class="fa fa-star"></i> 9.7</span>
+                            <span class="genre">剧情</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 确保推荐链接正确高亮
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === 'recommendations.html') {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="combined.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<title>Kyaru</title>
+	<script src="navigation.js"></script>
+	<script src="main.js"></script>
+</head>
+<body>
+	<div class="head">
+		<div class="logo">
+			<a href="index.html">
+				<img src="Img/logo.png" alt="web_logo" width="60px" height="60px">
+			</a>
+		</div>
+		<div class="nav">
+			<a class="active" href="#home">主页</a>
+			<a href="#about">推荐</a>
+			<a href="mailto:kyaru_pj@foxmail.com">联系我们</a>
+		</div>
+		<div class="search-container">
+			<input type="text" id="searchInput" placeholder="搜索...">
+			<button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
+		</div>
+
+		<div class="auth-buttons">
+			<button id="loginBtn" class="login-btn" onclick="window.location.href='login.html'">登录</button>
+			<button id="registerBtn" class="register-btn" onclick="window.location.href='register.html'">注册</button>
+		</div>
+
+		<!-- 用户中心区域 -->
+		<div id="userCenter" class="user-center" style="display: none;">
+			<div class="user-info-display">
+				<div class="user-avatar">
+					<img src="https://t.alcy.cc/tx" alt="用户头像">
+				</div>
+				<div class="user-details">
+					<span class="user-name" id="userName">用户名</span>
+					<div class="user-stats">
+						<div class="user-level">等级: Lv.<span id="userLevel">1</span></div>
+						<div class="user-exp">
+							<span>经验值: <span id="userExp">0</span></span>
+							<div class="exp-bar">
+								<div class="exp-progress" id="expProgress"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="user-actions">
+					<a href="#" class="action-btn"><i class="fa fa-user"></i></a>
+					<a href="#" class="action-btn"><i class="fa fa-cog"></i></a>
+					<a href="#" class="action-btn" id="logoutBtn"><i class="fa fa-sign-out-alt"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 签到按钮 -->
+		<div id="checkinTop" class="checkin-top" style="display: none;">
+			<button id="checkinBtnTop" class="checkin-btn-top">
+				<i class="fa fa-calendar-check"></i> 签到
+			</button>
+		</div>
+
+
+
+			
+	</div>
+
+	<!-- 轮播图部分 -->
+	<div class="carousel-container">
+		<div class="carousel">
+			<div class="carousel-item active">
+				<a href="https://www.bilibili.com/bangumi/play/ss46089" target="_blank">
+					<img src="Img/g5-1-724x1024.jpg" alt="葬送的芙莉莲">
+					<div class="carousel-caption">
+						<h3>葬送的芙莉莲</h3>
+						<p>勇者小队击败魔王后，长生种精灵魔法使芙莉莲踏上理解人类的旅程</p>
+					</div>
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="https://www.bilibili.com/bangumi/play/ss1539" target="_blank">
+					<img src="Img/Oregairu_S3_Teaser.webp" alt="我的青春恋爱物语果然有问题">
+					<div class="carousel-caption">
+						<h3>我的青春恋爱物语果然有问题</h3>
+						<p>孤僻高中生比企谷八幡用扭曲的方式解决他人青春烦恼的故事</p>
+					</div>
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="https://www.bilibili.com/bangumi/play/ss41410" target="_blank">
+					<img src="https://storage.moegirl.tw/moegirl/commons/0/06/Spy_x_Anya_Operation_Memories_KV.jpg" alt="间谍过家家">
+					<div class="carousel-caption">
+						<h3>间谍过家家</h3>
+						<p>间谍"黄昏"为执行任务与杀手、超能力者组成临时家庭的温馨喜剧</p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<button class="carousel-control prev" id="prevBtn">
+			<i class="fa fa-chevron-left"></i>
+		</button>
+		<button class="carousel-control next" id="nextBtn">
+			<i class="fa fa-chevron-right"></i>
+		</button>
+		<div class="carousel-indicators">
+			<span class="indicator active" data-slide="0"></span>
+			<span class="indicator" data-slide="1"></span>
+			<span class="indicator" data-slide="2"></span>
+		</div>
+	</div>
+
+	<div class="content-section">
+		<div class="container">
+			<h2>欢迎来到我们的网站</h2>
+			<p>██████████████████████████████████████████████████████</p>
+			<p>████████████████████████████████████████████████████████████████████████</p>
+			<div id="welcomeMessage" class="welcome-message">
+				<p>██████████████████喜欢██████████████████网站！</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="searchResults" class="search-results" style="display: none;">
+		<div class="search-header">
+			<h3>搜索结果</h3>
+			<div class="search-actions">
+				<a href="index.html" class="home-btn"><i class="fa fa-home"></i> 返回主页</a>
+				<button id="closeSearch" class="close-search"><i class="fa fa-times"></i></button>
+			</div>
+		</div>
+		<iframe id="searchFrame" src="" frameborder="0"></iframe>
+	</div>
+
+	<!-- 推荐部分 -->
+	<div id="about" class="about-section">
+		<div class="container">
+			<div id="content-8" class="content-area">
+				<a href="https://github.com/Predidit/Kazumi" target="_blank">
+					<img src="Img/logo_android.png" alt="kazumi" width="1024" height="1024"/>
+				</a>
+				<h2 class="content-title">Kazumi</h2>
+				<div class="content-text">
+					<p>以下内容转载自GitHub<br /></p>
+					<p><strong>使用 Flutter 开发的基于自定义规则的番剧采集与在线观看程序。使用最多五行基于 Xpath 语法的选择器构建自己的规则。
+					支持规则导入与规则分享。支持基于 Anime4K 的实时超分辨率。绝赞开发中 (～￣▽￣)～</strong>
+					<p><strong>支持平台：</strong></p>
+					<ul>
+						<li>Android 10 及以上</li>
+						<li>Windows 10 及以上</li>
+						<li>MacOS 10.15 及以上</li>
+						<li>Linux (实验性)</li>
+						<li>OS 13 及以上</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

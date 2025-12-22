@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="combined.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>用户登录</title>
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <div class="back-to-home">
+                <a href="index.html" class="home-btn"><i class="fa fa-arrow-left"></i> 返回主页</a>
+            </div>
+            <h2>欢迎登录</h2>
+            <form>
+                <div class="form-group">
+                    <label for="username">用户名/邮箱</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">记住我</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="login-submit-btn">登录</button>
+                </div>
+                <div class="register-link">
+                    <p>还没有账户？ <a href="register.html">立即注册</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

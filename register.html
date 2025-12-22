@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="combined.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>用户注册</title>
+    <script src="main.js"></script>
+
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-form">
+            <div class="back-to-home">
+                <a href="index.html" class="home-btn"><i class="fa fa-arrow-left"></i> 返回主页</a>
+            </div>
+            <h2>创建账户</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required>
+                    <div class="validation-message" id="username-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">电子邮箱</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="validation-message" id="email-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="validation-message" id="password-message"></div>
+                    <div class="password-requirements">
+                        <p>密码要求：</p>
+                        <ul>
+                            <li id="length-req">至少8个字符</li>
+                            <li id="letter-req">包含字母</li>
+                            <li id="number-req">包含数字</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">确认密码</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <div class="validation-message" id="confirm-password-message"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="register-submit-btn">注册</button>
+                </div>
+                <div class="login-link">
+                    <p>已有账户？ <a href="login.html">立即登录</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // 模拟已存在的用户名
+        const existingUsernames = ['admin', 'user', 'test', 'guest', 'demo'];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerForm = document.getElementById('registerForm');
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+
+            // 用户名验证
+            usernameInput.addEventListener('blur', function() {
+                const username = this.value.trim();
+                const usernameMessage = document.getElementById('username-message');
+
+                if (username === '') {
+                    usernameMessage.textContent = '用户名不能为空';
+                    usernameMessage.className = 'validation-message';
+                } else if (existingUsernames.includes(username)) {
+                    usernameMessage.textContent = '用户名已存在';
+                    usernameMessage.className = 'validation-message';
+                } else {
+                    usernameMessage.textContent = '用户名可用';
+                    usernameMessage.className = 'validation-message success';
+                }
+            });
+
+            // 邮箱验证
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                const emailMessage = document.getElementById('email-message');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (email === '') {
+                    emailMessage.textContent = '邮箱不能为空';
+                    emailMessage.className = 'validation-message';
+                } else if (!emailRegex.test(email)) {
+                    emailMessage.textContent = '请输入有效的邮箱地址';
+                    emailMessage.className = 'validation-message';
+                } else {
+                    emailMessage.textContent = '邮箱格式正确';
+                    emailMessage.className = 'validation-message success';
+                }
+            });
+
+            // 密码验证
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const passwordMessage = document.getElementById('password-message');
+
+                // 密码长度验证
+                const lengthReq = document.getElementById('length-req');
+                const hasValidLength = password.length >= 8;
+                lengthReq.className = hasValidLength ? 'valid' : 'invalid';
+
+                // 密码字母验证
+                const letterReq = document.getElementById('letter-req');
+                const hasLetter = /[a-zA-Z]/.test(password);
+                letterReq.className = hasLetter ? 'valid' : 'invalid';
+
+                // 密码数字验证
+                const numberReq = document.getElementById('number-req');
+                const hasNumber = /\d/.test(password);
+                numberReq.className = hasNumber ? 'valid' : 'invalid';
+
+                // 整体密码验证
+                if (password === '') {
+                    passwordMessage.textContent = '密码不能为空';
+                    passwordMessage.className = 'validation-message';
+                } else if (!hasValidLength || !hasLetter || !hasNumber) {
+                    passwordMessage.textContent = '密码不符合要求';
+                    passwordMessage.className = 'validation-message';
+                } else {
+                    passwordMessage.textContent = '密码强度良好';
+                    passwordMessage.className = 'validation-message success';
+                }
+
+                // 如果确认密码已填写，检查密码是否匹配
+                if (confirmPasswordInput.value) {
+                    confirmPasswordInput.dispatchEvent(new Event('input'));
+                }
+            });
+
+            // 确认密码验证
+            confirmPasswordInput.addEventListener('input', function() {
+                const confirmPassword = this.value;
+                const password = passwordInput.value;
+                const confirmPasswordMessage = document.getElementById('confirm-password-message');
+
+                if (confirmPassword === '') {
+                    confirmPasswordMessage.textContent = '请再次输入密码';
+                    confirmPasswordMessage.className = 'validation-message';
+                } else if (confirmPassword !== password) {
+                    confirmPasswordMessage.textContent = '两次输入的密码不一致';
+                    confirmPasswordMessage.className = 'validation-message';
+                } else {
+                    confirmPasswordMessage.textContent = '密码匹配';
+                    confirmPasswordMessage.className = 'validation-message success';
+                }
+            });
+
+            // 表单提交处理 - 使用main.js中的handleRegister函数
+            // 移除本地表单提交处理，让main.js中的handleRegister函数接管
+            registerForm.addEventListener('submit', function(e) {
+                // 触发所有验证
+                usernameInput.dispatchEvent(new Event('blur'));
+                emailInput.dispatchEvent(new Event('blur'));
+                passwordInput.dispatchEvent(new Event('input'));
+                confirmPasswordInput.dispatchEvent(new Event('input'));
+
+                // 检查所有验证是否通过
+                const usernameValid = document.getElementById('username-message').classList.contains('success');
+                const emailValid = document.getElementById('email-message').classList.contains('success');
+                const passwordValid = document.getElementById('password-message').classList.contains('success');
+                const confirmPasswordValid = document.getElementById('confirm-password-message').classList.contains('success');
+
+                // 如果验证未通过，阻止表单提交
+                if (!usernameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
+                    e.preventDefault();
+                    alert('请检查表单中的错误');
+                    return false;
+                }
+                // 如果验证通过，让main.js中的handleRegister函数处理
+            });
+        });
+    </script>
+</body>
+</html>
