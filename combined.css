@@ -715,7 +715,7 @@ body::after {
 /* 轮播图标题样式 */
 .carousel-caption {
     position: absolute;
-    bottom: 0;
+    bottom: 30px;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.5);
