@@ -1,0 +1,7 @@
+# 本地课程源表与临时解析依赖不上传
+*.xls
+.xls-reader/
+
+# 编辑器与系统文件
+.DS_Store
+Thumbs.db
