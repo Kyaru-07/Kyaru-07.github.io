@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>桌面时钟</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=20260903-5">
+  <link rel="stylesheet" href="style.css?v=20260903-6">
 </head>
 <body>
   <main class="dashboard">
@@ -25,7 +25,7 @@
     </section>
     <section class="info-grid">
       <article class="card courses-card">
-        <div class="card-title"><span>今日课程</span><a class="course-import-link" href="https://jwx.dgut.edu.cn/xskb/xskb_list.do?viweType=0">导入课表</a></div>
+        <div class="card-title"><span>今日课程</span><button id="courseImportButton" class="course-import-link" type="button">导入课表</button></div>
         <div class="course-toolbar"><button id="prevDay" class="day-nav" aria-label="前一天">‹</button><div id="courseDate" class="muted"></div><button id="nextDay" class="day-nav" aria-label="后一天">›</button><button id="todayButton" class="today-button">今天</button></div>
         <div id="courseList" class="course-list"><p class="empty">还没有课程表。请导入 CSV 文件。</p></div>
       </article>
@@ -50,7 +50,18 @@
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
-  <script src="courses.js?v=20260903-8"></script>
-  <script src="app.js?v=20260903-8"></script>
+  <div id="courseImportModal" class="modal" hidden>
+    <div class="modal-box course-import-box">
+      <button id="closeCourseImport" class="close" aria-label="关闭">×</button>
+      <h2>导入东莞理工课表</h2>
+      <p>打开教务系统并登录，在“个人课表信息”页复制页面源码，再粘贴到下方。内容只在本机解析，不会上传账号、密码或 Cookie。</p>
+      <a class="course-system-link" href="https://jwx.dgut.edu.cn/xskb/xskb_list.do?viweType=0" target="_blank" rel="noopener">打开教务系统</a>
+      <textarea id="courseHtmlInput" rows="7" placeholder="在这里粘贴课表页面源码…"></textarea>
+      <p id="courseImportStatus" class="small"></p>
+      <div class="modal-actions"><button id="importCourseHtml">导入到课表</button></div>
+    </div>
+  </div>
+  <script src="courses.js?v=20260903-9"></script>
+  <script src="app.js?v=20260903-9"></script>
 </body>
 </html>
