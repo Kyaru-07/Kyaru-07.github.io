@@ -17,13 +17,13 @@
       <div id="time" class="time">--:--</div>
       <div id="seconds" class="seconds">--</div>
       <div id="date" class="date">----</div>
-    </section>
-    <section class="info-grid">
-      <article class="card weather-card">
-        <div class="card-title"><span>近期天气</span><span id="weatherUpdated" class="muted"></span></div>
+      <section class="weather-inline" aria-label="近期天气">
+        <div class="weather-inline-title"><span>近期天气</span><span id="weatherUpdated" class="muted"></span></div>
         <div id="weatherContent" class="weather-content loading">正在获取天气…</div>
         <div id="forecast" class="forecast"></div>
-      </article>
+      </section>
+    </section>
+    <section class="info-grid">
       <article class="card courses-card">
         <div class="card-title"><span>今日课程</span><label class="import-label">导入 CSV<input id="csvInput" type="file" accept=".csv,text/csv"></label></div>
         <div class="course-toolbar"><button id="prevDay" class="day-nav" aria-label="前一天">‹</button><div id="courseDate" class="muted"></div><button id="nextDay" class="day-nav" aria-label="后一天">›</button><button id="todayButton" class="today-button">今天</button></div>
@@ -50,7 +50,7 @@
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
-  <script src="courses.js?v=20260903-5"></script>
-  <script src="app.js?v=20260903-5"></script>
+  <script src="courses.js?v=20260903-6"></script>
+  <script src="app.js?v=20260903-6"></script>
 </body>
 </html>
