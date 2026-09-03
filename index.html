@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>桌面时钟</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260903-2">
 </head>
 <body>
   <main class="dashboard">
@@ -25,7 +25,7 @@
     </section>
     <section class="info-grid">
       <article class="card courses-card">
-        <div class="card-title"><span>今日课程</span><label class="import-label">导入 CSV<input id="csvInput" type="file" accept=".csv,text/csv"></label></div>
+        <div class="card-title"><span>今日课程</span></div>
         <div class="course-toolbar"><button id="prevDay" class="day-nav" aria-label="前一天">‹</button><div id="courseDate" class="muted"></div><button id="nextDay" class="day-nav" aria-label="后一天">›</button><button id="todayButton" class="today-button">今天</button></div>
         <div id="courseList" class="course-list"><p class="empty">还没有课程表。请导入 CSV 文件。</p></div>
       </article>
@@ -50,7 +50,7 @@
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
-  <script src="courses.js?v=20260903-6"></script>
-  <script src="app.js?v=20260903-6"></script>
+  <script src="courses.js?v=20260903-7"></script>
+  <script src="app.js?v=20260903-7"></script>
 </body>
 </html>
