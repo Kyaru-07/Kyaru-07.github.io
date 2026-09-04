@@ -3,7 +3,7 @@ name: Update Bandori events
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '17,47 * * * *'
   push:
     branches: [main]
     paths:
