@@ -3,7 +3,7 @@ name: Update Bandori events
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17,47 * * * *'
+    - cron: '7,22,37,52 * * * *'
   push:
     branches: [main]
     paths:
@@ -12,17 +12,24 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-bandori-events
+  cancel-in-progress: false
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - name: Download Bestdori event data
         run: |
           mkdir -p data
-          curl --fail --location --retry 3 --retry-delay 5 \
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 5 \
+            --connect-timeout 15 --max-time 60 \
             --output data/bandori-events.json \
             https://bestdori.com/api/events/all.6.json
+          node -e "const fs=require('fs');const data=JSON.parse(fs.readFileSync('data/bandori-events.json','utf8'));if(!data||typeof data!=='object'||!Object.keys(data).length)process.exit(1)"
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
