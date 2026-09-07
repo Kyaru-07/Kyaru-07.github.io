@@ -51,6 +51,8 @@
   function bindModalClick(id,handler){var node=el(id);node.onclick=null;node.addEventListener('click',handler,false);}
   bindModalClick('settingsButton',function(){el('apiKeyInput').value=state.key;el('apiHostInput').value=state.host;showModal('settingsModal');});
   bindModalClick('closeSettings',function(){hideModal('settingsModal');});
+  bindModalClick('bathButton',function(){showModal('bathModal');});
+  bindModalClick('closeBath',function(){hideModal('bathModal');});
   bindModalClick('saveSettings',function(){state.key=el('apiKeyInput').value.trim();state.host=el('apiHostInput').value.trim();localStorage.setItem('deskClockQWeatherKey',state.key);localStorage.setItem('deskClockQWeatherHost',state.host);hideModal('settingsModal');refreshWeather();});
   bindModalClick('courseImportButton',function(){el('courseImportStatus').textContent='';showModal('courseImportModal');});
   bindModalClick('closeCourseImport',function(){hideModal('courseImportModal');});
