@@ -47,6 +47,10 @@
       <label>和风天气 API Host<input id="apiHostInput" type="text" placeholder="控制台设置中的 xxx.qweatherapi.com（不是 Key）" autocapitalize="off" autocorrect="off"></label>
       <label>和风天气 API Key<input id="apiKeyInput" type="password" placeholder="留空则使用基础天气服务"></label>
       <p class="small">API Host 与 Key 只保存在这台 iPad 的浏览器中。网页须通过 HTTPS 地址打开；直接打开 file:// 文件会被 iPad 的安全策略拦截定位与接口请求。</p>
+      <h3>热水控制（NAS）</h3>
+      <label>NAS 水控服务地址<input id="waterServiceInput" type="url" placeholder="https://water.example.com" autocapitalize="off" autocorrect="off"></label>
+      <label>水控访问密钥<input id="waterAccessKeyInput" type="password" placeholder="仅保存在这台 iPad 中"></label>
+      <p class="small">热水凭证仅保存在 NAS；这里填写 NAS 地址和访问密钥。请使用 HTTPS 地址。</p>
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
@@ -54,8 +58,9 @@
     <div class="modal-box" style="text-align:center">
       <button id="closeBath" class="close" aria-label="关闭">×</button>
       <h2 id="bathTitle">我要洗澡</h2>
-      <p>请扫描二维码。</p>
-      <img src="assets/bath-qr.png" alt="洗澡二维码" style="display:block;width:100%;max-width:330px;height:auto;margin:14px auto 0">
+      <p id="waterStatus" class="small">正在连接 NAS 水控服务…</p>
+      <div class="modal-actions"><button id="waterOpenButton" type="button">开闸用水</button><button id="waterFinishButton" class="secondary" type="button">结束并付款</button></div>
+      <p class="small">结束后只会自动支付本次用水生成、且不超过 ¥0.60 的账单。</p>
     </div>
   </div>
   <div id="courseImportModal" class="modal" hidden>
@@ -70,6 +75,6 @@
     </div>
   </div>
   <script src="courses.js?v=20260903-15"></script>
-  <script src="app.js?v=20260907-1"></script>
+  <script src="app.js?v=20260909-1"></script>
 </body>
 </html>
