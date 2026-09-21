@@ -38,13 +38,20 @@ button,input { font:inherit; } button { cursor:pointer; } .dashboard { min-heigh
 .lyrics-overlay { background:#16181b; }
 .lyrics-overlay:after { display:none; }
 .lyrics-artwork { box-shadow:none; }
-.lyrics-scroll { will-change:auto; transition:transform .22s ease-out; }
+.lyrics-scroll { will-change:transform; transition:transform .32s ease-out; }
 .lyrics-line,
 .lyrics-line.is-active,
 .lyrics-line.is-next-1,
 .lyrics-line.is-next-2,
 .lyrics-line.is-next-3,
 .lyrics-line.is-prev-1,
-.lyrics-line.is-hidden { filter:none; text-shadow:none; transition:opacity .18s linear,color .18s linear,transform .18s ease-out; }
+.lyrics-line.is-hidden { min-height:58px; font-size:40px!important; line-height:1.45; filter:none; text-shadow:none; transition:opacity .2s linear,color .2s linear,transform .2s ease-out; }
+.lyrics-line.is-active { font-weight:800; opacity:1; transform:scale(1); }
+.lyrics-line.is-next-1 { opacity:.5; transform:scale(.98); }
+.lyrics-line.is-next-2 { opacity:.2; transform:scale(.96); }
+.lyrics-line.is-next-3,.lyrics-line.is-prev-1,.lyrics-line.is-hidden { transform:scale(.94); }
 .lyrics-scrollbar-indicator { transition:none; }
 .lyrics-progress-bar i { transition:none; }
+@media (max-width:850px) {
+  .lyrics-line,.lyrics-line.is-active,.lyrics-line.is-next-1,.lyrics-line.is-next-2,.lyrics-line.is-next-3,.lyrics-line.is-prev-1,.lyrics-line.is-hidden { min-height:42px; font-size:28px!important; }
+}
