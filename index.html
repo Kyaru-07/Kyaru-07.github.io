@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>桌面时钟</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=20260921-lyrics-4">
+  <link rel="stylesheet" href="style.css?v=20260921-lyrics-5">
 </head>
 <body>
   <main class="dashboard">
@@ -54,21 +54,13 @@
       <h3>跨屏歌词（NAS）</h3>
       <label>歌词同步密钥<input id="musicAccessKeyInput" type="password" placeholder="MUSIC_ACCESS_KEY，仅保存在这台 iPad 中"></label>
       <label>歌词时间轴校准 (毫秒，正数提前，负数延后)<input id="lyricsOffsetInput" type="number" step="100" placeholder="默认 0"></label>
-      <label>Apple Music Token（可选，由 Windows 助手自动更新）<input id="appleMusicTokenInput" type="password" placeholder="留空则由 Windows 助手自动上报或免 Token 自动兜底"></label>
-      <p id="appleTokenStatus" class="small">已支持 Apple Music 原生 + QQ音乐 / 酷狗 多源智能兜底。</p>
+      <label>Apple Music Token（可选，由 Windows 助手自动更新）<input id="appleMusicTokenInput" type="password" placeholder="留空则由 Windows 助手自动上报"></label>
+      <p id="appleTokenStatus" class="small">歌词仅从 Apple Music 官方接口读取。</p>
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
   <section id="lyricsOverlay" class="lyrics-overlay" hidden aria-live="polite">
     <img id="lyricsBgImg" class="lyrics-bg-img" alt="" aria-hidden="true" />
-    <div class="lyrics-top-actions">
-      <button id="toggleFullscreen" class="lyrics-top-btn" type="button" aria-label="全屏切换" title="全屏切换">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-      </button>
-      <button id="closeLyrics" class="lyrics-top-btn" type="button" aria-label="关闭歌词" title="关闭歌词">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
     <div class="lyrics-shell">
       <div class="lyrics-track">
         <div id="lyricsArtwork" class="lyrics-artwork">
@@ -117,6 +109,6 @@
     </div>
   </div>
   <script src="courses.js?v=20260903-15"></script>
-  <script src="app.js?v=20260921-lyrics-7"></script>
+  <script src="app.js?v=20260921-lyrics-8"></script>
 </body>
 </html>
