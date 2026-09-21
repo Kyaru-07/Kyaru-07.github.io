@@ -52,6 +52,10 @@ button,input { font:inherit; } button { cursor:pointer; } .dashboard { min-heigh
 .lyrics-line.is-next-3,.lyrics-line.is-prev-1,.lyrics-line.is-hidden { transform:scale(.94); }
 .lyrics-scrollbar-indicator { transition:none; }
 .lyrics-progress-bar i { transition:none; }
+.lyrics-lines { display:flex; align-items:center; -webkit-mask-image:none; mask-image:none; }
+.lyrics-scroll { display:block; width:100%; padding:0; transform:none!important; transition:none; }
+.lyrics-scroll .lyrics-line { margin:13px 0; }
+.lyrics-scrollbar-indicator { display:none!important; }
 @media (max-width:850px) {
   .lyrics-line,.lyrics-line.is-active,.lyrics-line.is-next-1,.lyrics-line.is-next-2,.lyrics-line.is-next-3,.lyrics-line.is-prev-1,.lyrics-line.is-hidden { min-height:42px; font-size:28px!important; }
 }
