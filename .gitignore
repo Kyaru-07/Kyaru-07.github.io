@@ -5,3 +5,8 @@
 # 编辑器与系统文件
 .DS_Store
 Thumbs.db
+
+# 私有后端与本地桥接工具（含凭证与编译文件，不上传公开前端库）
+water-controller-nas/
+apple-music-lyrics-bridge/
+water_controller_sanitized/
