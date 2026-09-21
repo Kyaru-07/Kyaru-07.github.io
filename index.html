@@ -51,9 +51,24 @@
       <label>NAS 水控服务地址<input id="waterServiceInput" type="url" placeholder="https://water.example.com" autocapitalize="off" autocorrect="off"></label>
       <label>水控访问密钥<input id="waterAccessKeyInput" type="password" placeholder="仅保存在这台 iPad 中"></label>
       <p class="small">热水凭证仅保存在 NAS；这里填写 NAS 地址和访问密钥。请使用 HTTPS 地址。</p>
+      <h3>跨屏歌词（NAS）</h3>
+      <label>歌词同步密钥<input id="musicAccessKeyInput" type="password" placeholder="MUSIC_ACCESS_KEY，仅保存在这台 iPad 中"></label>
+      <p class="small">与 Windows 播放助手使用同一 NAS 地址及 MUSIC_ACCESS_KEY。检测到播放时自动进入全屏歌词。</p>
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
     </div>
   </div>
+  <section id="lyricsOverlay" class="lyrics-overlay" hidden aria-live="polite">
+    <button id="closeLyrics" class="lyrics-close" type="button" aria-label="暂时关闭歌词">×</button>
+    <div class="lyrics-shell">
+      <div class="lyrics-track">
+        <div id="lyricsArtwork" class="lyrics-artwork" aria-hidden="true"><span>♫</span></div>
+        <div id="lyricsSongTitle" class="lyrics-song-title">正在播放</div>
+        <div id="lyricsArtist" class="lyrics-artist">等待 Windows 播放助手同步</div>
+        <div class="lyrics-progress"><span id="lyricsElapsed">0:00</span><div class="lyrics-progress-bar"><i id="lyricsProgressFill"></i></div><span id="lyricsRemaining">-0:00</span></div>
+      </div>
+      <div id="lyricsLines" class="lyrics-lines"><p class="lyrics-current">正在连接 NAS 音乐同步…</p></div>
+    </div>
+  </section>
   <div id="bathModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="bathTitle">
     <div class="modal-box" style="text-align:center">
       <button id="closeBath" class="close" aria-label="关闭">×</button>
@@ -75,6 +90,6 @@
     </div>
   </div>
   <script src="courses.js?v=20260903-15"></script>
-  <script src="app.js?v=20260921-1"></script>
+  <script src="app.js?v=20260921-lyrics-1"></script>
 </body>
 </html>
