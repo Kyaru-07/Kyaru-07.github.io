@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>桌面时钟</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=20260921-lyrics-3">
+  <link rel="stylesheet" href="style.css?v=20260921-lyrics-4">
 </head>
 <body>
   <main class="dashboard">
@@ -53,6 +53,7 @@
       <p class="small">热水凭证仅保存在 NAS；这里填写 NAS 地址和访问密钥。请使用 HTTPS 地址。</p>
       <h3>跨屏歌词（NAS）</h3>
       <label>歌词同步密钥<input id="musicAccessKeyInput" type="password" placeholder="MUSIC_ACCESS_KEY，仅保存在这台 iPad 中"></label>
+      <label>歌词时间轴校准 (毫秒，正数提前，负数延后)<input id="lyricsOffsetInput" type="number" step="100" placeholder="默认 0"></label>
       <label>Apple Music Token（可选，由 Windows 助手自动更新）<input id="appleMusicTokenInput" type="password" placeholder="留空则由 Windows 助手自动上报或免 Token 自动兜底"></label>
       <p id="appleTokenStatus" class="small">已支持 Apple Music 原生 + QQ音乐 / 酷狗 多源智能兜底。</p>
       <div class="modal-actions"><button id="saveSettings">保存并刷新</button><button id="clearCourses" class="secondary">清除课程表</button></div>
@@ -67,8 +68,17 @@
         <div id="lyricsArtist" class="lyrics-artist">等待 Windows 播放助手同步</div>
         <div id="lyricsProviderTag" class="lyrics-provider-tag" hidden></div>
         <div class="lyrics-progress"><span id="lyricsElapsed">0:00</span><div class="lyrics-progress-bar"><i id="lyricsProgressFill"></i></div><span id="lyricsRemaining">-0:00</span></div>
+        <div class="lyrics-sync-bar">
+          <button id="lyricsAdvanceBtn" class="sync-pill" type="button" title="歌词慢了，提前0.5秒">提前 0.5s</button>
+          <span id="lyricsOffsetBadge" class="sync-badge" title="点击重置为 0ms">0.0s</span>
+          <button id="lyricsDelayBtn" class="sync-pill" type="button" title="歌词快了，延后0.5秒">延后 0.5s</button>
+        </div>
       </div>
-      <div id="lyricsLines" class="lyrics-lines"><p class="lyrics-current">正在连接 NAS 音乐同步…</p></div>
+      <div id="lyricsLines" class="lyrics-lines">
+        <div id="lyricsScroll" class="lyrics-scroll">
+          <p class="lyrics-line is-active">正在连接 NAS 音乐同步…</p>
+        </div>
+      </div>
     </div>
   </section>
   <div id="bathModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="bathTitle">
@@ -92,6 +102,6 @@
     </div>
   </div>
   <script src="courses.js?v=20260903-15"></script>
-  <script src="app.js?v=20260921-lyrics-3"></script>
+  <script src="app.js?v=20260921-lyrics-4"></script>
 </body>
 </html>
