@@ -60,24 +60,62 @@
     </div>
   </div>
   <section id="lyricsOverlay" class="lyrics-overlay" hidden aria-live="polite">
-    <button id="closeLyrics" class="lyrics-close" type="button" aria-label="暂时关闭歌词">×</button>
+    <div class="lyrics-top-actions">
+      <button id="toggleFullscreen" class="lyrics-top-btn" type="button" aria-label="全屏切换" title="全屏切换">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </button>
+      <button id="closeLyrics" class="lyrics-top-btn" type="button" aria-label="关闭歌词" title="关闭歌词">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
     <div class="lyrics-shell">
       <div class="lyrics-track">
         <div id="lyricsArtwork" class="lyrics-artwork" aria-hidden="true"><span>♫</span></div>
         <div id="lyricsSongTitle" class="lyrics-song-title">正在播放</div>
         <div id="lyricsArtist" class="lyrics-artist">等待 Windows 播放助手同步</div>
-        <div id="lyricsProviderTag" class="lyrics-provider-tag" hidden></div>
-        <div class="lyrics-progress"><span id="lyricsElapsed">0:00</span><div class="lyrics-progress-bar"><i id="lyricsProgressFill"></i></div><span id="lyricsRemaining">-0:00</span></div>
-        <div class="lyrics-sync-bar">
-          <button id="lyricsAdvanceBtn" class="sync-pill" type="button" title="歌词慢了，提前0.5秒">提前 0.5s</button>
-          <span id="lyricsOffsetBadge" class="sync-badge" title="点击重置为 0ms">0.0s</span>
-          <button id="lyricsDelayBtn" class="sync-pill" type="button" title="歌词快了，延后0.5秒">延后 0.5s</button>
+        <div class="lyrics-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12c1.5-4 3.5-4 5 0s3.5 4 5 0 3.5-4 5 0 3.5 4 5 0"/></svg>
+          <span id="lyricsLosslessText">无损</span>
+          <span id="lyricsProviderTag" class="lyrics-provider-tag" hidden></span>
+        </div>
+        <div class="lyrics-progress">
+          <span id="lyricsElapsed">0:00</span>
+          <div class="lyrics-progress-bar"><i id="lyricsProgressFill"></i></div>
+          <span id="lyricsRemaining">-0:00</span>
+        </div>
+        <div class="lyrics-controls">
+          <div class="lyrics-ctrl-group">
+            <button class="lyrics-ctrl-btn" type="button" title="音量" aria-label="音量">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11 5L6 9H2v6h4l5 4V5zm4.5 3c0-.7-.4-1.3-1-1.6v7.2c.6-.3 1-.9 1-1.6V8zm0-4.5c2.9.9 5 3.6 5 6.8s-2.1 5.9-5 6.8v-2.1c1.8-.8 3-2.6 3-4.7s-1.2-3.9-3-4.7V3.5z"/></svg>
+            </button>
+            <button class="lyrics-ctrl-btn" type="button" title="更多" aria-label="更多">
+              <span class="ctrl-dots">···</span>
+            </button>
+          </div>
+          <div class="lyrics-ctrl-center">
+            <button class="lyrics-ctrl-btn" type="button" title="上一首" aria-label="上一首">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button class="lyrics-ctrl-btn lyrics-play-btn" type="button" title="播放/暂停" aria-label="播放/暂停">
+              <svg id="lyricsIconPause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              <svg id="lyricsIconPlay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="lyrics-ctrl-btn" type="button" title="下一首" aria-label="下一首">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+            </button>
+          </div>
+          <div class="lyrics-ctrl-group">
+            <button class="ctrl-lyric-btn" type="button" title="歌词" aria-label="歌词">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10H6v-2h12v2zm0-3H6V7h12v2z"/></svg>
+            </button>
+          </div>
         </div>
       </div>
       <div id="lyricsLines" class="lyrics-lines">
         <div id="lyricsScroll" class="lyrics-scroll">
           <p class="lyrics-line is-active">正在连接 NAS 音乐同步…</p>
         </div>
+        <div id="lyricsScrollbar" class="lyrics-scrollbar-indicator" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -102,6 +140,6 @@
     </div>
   </div>
   <script src="courses.js?v=20260903-15"></script>
-  <script src="app.js?v=20260921-lyrics-4"></script>
+  <script src="app.js?v=20260921-lyrics-5"></script>
 </body>
 </html>
