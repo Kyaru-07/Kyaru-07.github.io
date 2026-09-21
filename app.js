@@ -82,5 +82,5 @@
   el('prevDay').onclick=null;el('nextDay').onclick=null;el('todayButton').onclick=null;el('prevDay').addEventListener('click',function(){moveSelectedDate(-1);},false);el('nextDay').addEventListener('click',function(){moveSelectedDate(1);},false);el('todayButton').addEventListener('click',function(){state.followToday=true;state.selectedDate=new Date();renderCourses();},false);
   function locate(){if(!navigator.geolocation){weatherFailed();return;}navigator.geolocation.getCurrentPosition(function(p){state.lat=p.coords.latitude;state.lon=p.coords.longitude;el('locationName').textContent='正在识别位置';fetchLocationName();refreshWeather();},function(){el('locationName').textContent='未获取定位';weatherFailed();},{enableHighAccuracy:true,timeout:12000,maximumAge:600000});}
   document.addEventListener('touchstart',unlockAudio,false);document.addEventListener('click',unlockAudio,false);
-  nowClock();setInterval(nowClock,1000);locate();setInterval(refreshWeather,5*60*1000);fetchBandoriEvent();setInterval(fetchBandoriEvent,30*60*1000);refreshMusic();setInterval(refreshMusic,1000);setInterval(renderLyrics,50);
+  nowClock();setInterval(nowClock,1000);locate();setInterval(refreshWeather,5*60*1000);fetchBandoriEvent();setInterval(fetchBandoriEvent,30*60*1000);refreshMusic();setInterval(refreshMusic,1000);setInterval(renderLyrics,200);
 }());

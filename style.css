@@ -32,3 +32,19 @@ button,input { font:inherit; } button { cursor:pointer; } .dashboard { min-heigh
   .lyrics-line { font-size:28px; }
   .lyrics-line.is-active { font-size:34px; }
 }
+
+/* iPad mini 2 歌词页精简模式：仅降低歌词全屏显示的合成与重绘开销。 */
+.lyrics-bg-img { display:none!important; }
+.lyrics-overlay { background:#16181b; }
+.lyrics-overlay:after { display:none; }
+.lyrics-artwork { box-shadow:none; }
+.lyrics-scroll { will-change:auto; transition:transform .22s ease-out; }
+.lyrics-line,
+.lyrics-line.is-active,
+.lyrics-line.is-next-1,
+.lyrics-line.is-next-2,
+.lyrics-line.is-next-3,
+.lyrics-line.is-prev-1,
+.lyrics-line.is-hidden { filter:none; text-shadow:none; transition:opacity .18s linear,color .18s linear,transform .18s ease-out; }
+.lyrics-scrollbar-indicator { transition:none; }
+.lyrics-progress-bar i { transition:none; }
