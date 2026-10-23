@@ -6,7 +6,46 @@
   function showModal(id){var node=el(id);node.removeAttribute('hidden');node.style.display='block';node.setAttribute('aria-hidden','false');}
   function hideModal(id){if(id==='bathModal'&&state.bathTimer){clearTimeout(state.bathTimer);state.bathTimer=null;}var node=el(id);node.style.display='none';node.setAttribute('hidden','hidden');node.setAttribute('aria-hidden','true');}
   function pad(n) { return n < 10 ? '0' + n : String(n); }
-  function nowClock() { var d=new Date(); if(state.followToday&&(state.selectedDate.getFullYear()!==d.getFullYear()||state.selectedDate.getMonth()!==d.getMonth()||state.selectedDate.getDate()!==d.getDate()))state.selectedDate=new Date(d.getFullYear(),d.getMonth(),d.getDate()); el('time').innerHTML=pad(d.getHours())+'<span class="colon">:</span>'+pad(d.getMinutes()); el('seconds').textContent=pad(d.getSeconds()); el('date').textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日 星期'+weekdays[d.getDay()]; applyTheme(); renderCourses(); }
+  /* 翻牌数字：初始化 4 个内凹槽，变化时旧数字上滑出、新数字从下滑入（锤子时钟手感） */
+  function flipInit() {
+    var t = el('time');
+    if (!t || t.getAttribute('data-flip-init') === '1') return;
+    t.setAttribute('data-flip-init', '1');
+    t.innerHTML = '<span class="flip-digit"><span class="flip-cur"></span><span class="flip-new"></span></span><span class="colon">:</span><span class="flip-digit"><span class="flip-cur"></span><span class="flip-new"></span></span>';
+    var digits = t.querySelectorAll('.flip-digit');
+    for (var i = 0; i < digits.length; i++) digits[i].style.height = digits[i].getBoundingClientRect().height + 'px';
+  }
+  function flipSet(value) {
+    var t = el('time'), digits, i, cur, nw, txt;
+    if (!t || t.getAttribute('data-flip-init') !== '1') return false;
+    digits = t.querySelectorAll('.flip-digit');
+    txt = String(value);
+    if (txt.length !== digits.length) return false;
+    for (i = 0; i < digits.length; i++) {
+      cur = digits[i].querySelector('.flip-cur');
+      nw = digits[i].querySelector('.flip-new');
+      if (nw.textContent !== txt.charAt(i)) {
+        /* 先把当前显示的字同步到 cur（上一轮动画结束时已交换），再翻 */
+        if (cur.textContent !== nw.textContent) cur.textContent = nw.textContent;
+        nw.textContent = txt.charAt(i);
+        digits[i].classList.remove('flipping');
+        void digits[i].offsetWidth;   /* 重启动画（iOS 12 Safari 可靠） */
+        digits[i].classList.add('flipping');
+        /* 动画结束后固化：cur 变成新字，new 复位待命 */
+        (function(node, curEl, nwEl) {
+          setTimeout(function() {
+            node.classList.remove('flipping');
+            curEl.textContent = nwEl.textContent;
+            nwEl.style.animation = 'none';
+            void nwEl.offsetWidth;
+            nwEl.style.animation = '';
+          }, 320);
+        })(digits[i], cur, nw);
+      }
+    }
+    return true;
+  }
+  function nowClock() { var d=new Date(); if(state.followToday&&(state.selectedDate.getFullYear()!==d.getFullYear()||state.selectedDate.getMonth()!==d.getMonth()||state.selectedDate.getDate()!==d.getDate()))state.selectedDate=new Date(d.getFullYear(),d.getMonth(),d.getDate()); var hhmm=pad(d.getHours())+pad(d.getMinutes()); if(!flipSet(hhmm)){flipInit();flipSet(hhmm);if(!el('time').querySelector('.flip-digit'))el('time').innerHTML=hhmm;} el('seconds').textContent=pad(d.getSeconds()); el('date').textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日 星期'+weekdays[d.getDay()]; applyTheme(); renderCourses(); }
   function timeToMinutes(value) { var match=String(value||'').match(/^(\d{1,2}):(\d{2})$/), hours, minutes; if(!match)return null;hours=parseInt(match[1],10);minutes=parseInt(match[2],10);return hours>=0&&hours<24&&minutes>=0&&minutes<60?hours*60+minutes:null; }
   function applyTheme() { var d=new Date(), sun=state.astronomy, now=d.getHours()*60+d.getMinutes(), dark=now<360||now>=1140, rise, set; if(sun && sun.sunrise && sun.sunset) { rise=timeToMinutes(sun.sunrise);set=timeToMinutes(sun.sunset);if(rise!==null&&set!==null)dark=now<rise||now>=set; } document.body.className=dark?'dark':''; }
   function icon(code) { code=String(code); if(code==='100')return '☀️'; if(code==='101'||code==='102'||code==='103')return '🌤️'; if(code.indexOf('3')===0)return '🌧️'; if(code.indexOf('4')===0)return '❄️'; if(code.indexOf('5')===0)return '🌫️'; if(code.indexOf('2')===0)return '💨'; return '☁️'; }

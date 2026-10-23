@@ -45,6 +45,15 @@ body.dark {
 }
 
 /* ---------- 时钟区（锤子时钟 App：极细灯管字、灰阶、tabular 数字） ---------- */
+
+/* Inter ExtraLight（Figma 锤子 Kit 同款替代字体），仅数字用 */
+@font-face {
+  font-family: "Inter Clock";
+  src: url("fonts/inter-200.woff2") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+
 .clock-panel .topbar { color: var(--s-title); font-size: 16px; }
 #locationName { font-weight: 600; }
 
@@ -52,18 +61,57 @@ body.dark {
   color: var(--s-text);
   letter-spacing: -.02em;
   margin: 30px 8px 0 0;
-  /* 锤子时钟是极细的字重，不用粗体 */
-  font-weight: 300;
-  /* 冒号呼吸：每秒轻微收放，代替秒针的存在感（平滑曲线） */
+  font-weight: 200;
+  font-family: "Inter Clock", "Smartisan Compact", "Noto Sans CJK SC", "PingFang SC", sans-serif;
+  font-variant-numeric: tabular-nums;
 }
+.seconds { color: var(--s-accent); font-weight: 300; }
+.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; font-weight: 400; }
+
+/* 冒号呼吸（每秒轻明暗，smooth 曲线） */
 .time span.colon { animation: s-colon 1s cubic-bezier(.445,.05,.55,.95) infinite; }
-/* 冒号呼吸动画只在支持 JS 注入 span.colon 的浏览器生效；无 JS 时正常显示，无副作用 */
 @keyframes s-colon {
   0%, 100% { opacity: 1; }
   50% { opacity: .25; }
 }
-.seconds { color: var(--s-accent); font-weight: 300; }
-.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; font-weight: 400; }
+
+/* ---------- 翻牌数字：每个数字一个内凹槽，旧数字上滑出、新数字从下滑入 ---------- */
+.time .flip-digit {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;              /* 裁掉滑出槽外的字 */
+  vertical-align: bottom;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.06);   /* 锤子式内凹槽 */
+  border-radius: 6px;
+  line-height: 1;
+  padding: 0 .04em;
+}
+.time .flip-digit .flip-new {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(105%);
+}
+.time .flip-digit .flip-cur {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.time .flip-digit.flipping .flip-cur {
+  animation: flip-out .3s cubic-bezier(.4,0,1,1) forwards;
+}
+.time .flip-digit.flipping .flip-new {
+  animation: flip-in .3s cubic-bezier(0,0,.2,1) forwards;
+}
+@keyframes flip-out {
+  to { transform: translateY(-105%); }
+}
+@keyframes flip-in {
+  to { transform: translateY(0); }
+}
 
 /* ---------- 顶栏按钮：白色微渐变凸起小按钮，0.8px 细描边 ---------- */
 .topbar button,
