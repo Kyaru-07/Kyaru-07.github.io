@@ -59,8 +59,7 @@ body.dark {
 /* ---------- 顶栏按钮：白色微渐变凸起小按钮，0.8px 细描边 ---------- */
 .topbar button,
 .course-import-link,
-.today-button,
-.lyrics-top-btn {
+.today-button {
   background: linear-gradient(to bottom, #ffffff, #fcfcfc);
   border: .8px solid var(--s-line);
   border-radius: 6px;
@@ -173,7 +172,38 @@ body.dark .modal-box input, body.dark .modal-box textarea { background: #161616;
   border-color: var(--s-accent);
 }
 
-.close { color: var(--s-faint); font-size: 24px; top: 10px; }
+.close { color: var(--s-faint); font-size: 24px; top: 10px; transition: none; }
+.close:active { color: var(--s-title); transform: scale(.92); }
+
+/* 教务系统链接 → 锤子文字按钮（#5079d9，按下变深） */
+.course-system-link {
+  border: 0; background: transparent; padding: 4px 2px;
+  font-size: 14px; font-weight: 600; color: #5079d9;
+  box-shadow: none; text-decoration: none; transition: none;
+  display: inline-block; margin-top: 4px;
+}
+.course-system-link:active { color: #4772e6; }
+
+/* 歌词全屏页右上 × ：透明底，按住变亮（深色沉浸页不放白色块） */
+.lyrics-top-btn {
+  background: transparent; border: 0; box-shadow: none;
+  color: rgba(255, 255, 255, .55); transition: none;
+}
+.lyrics-top-btn:active { color: rgba(255, 255, 255, .95); }
+
+/* 预警角标（左上小铃铛）：白卡片细描边 + 按下下沉 */
+.alert-corner {
+  background: linear-gradient(to bottom, #ffffff, #fcfcfc);
+  border: .8px solid var(--s-line);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .1);
+}
+.alert-corner:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+/* 日历翻页箭头：按住弹性放大（顶栏图标手感） */
+.day-nav:active { transform: scale(1.33); }
 
 /* 对话框按钮组：底部按钮底 #f7f7f7、按下 #dfdfdf、主操作蓝字在最右 */
 .modal-actions { gap: 0; margin: 22px -24px -24px; border-top: .8px solid var(--s-divider); }
