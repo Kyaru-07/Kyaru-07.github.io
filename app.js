@@ -7,45 +7,57 @@
   function hideModal(id){if(id==='bathModal'&&state.bathTimer){clearTimeout(state.bathTimer);state.bathTimer=null;}var node=el(id);node.style.display='none';node.setAttribute('hidden','hidden');node.setAttribute('aria-hidden','true');}
   function pad(n) { return n < 10 ? '0' + n : String(n); }
   /* 翻牌数字：初始化 4 个内凹槽，变化时旧数字上滑出、新数字从下滑入（锤子时钟手感） */
-  function flipInit() {
-    var t = el('time');
-    if (!t || t.getAttribute('data-flip-init') === '1') return;
+  var flipReady = false;
+  function flipInit(value) {
+    var t = el('time'), digits, i, txt;
+    if (!t) return false;
     t.setAttribute('data-flip-init', '1');
     t.innerHTML = '<span class="flip-digit"><span class="flip-cur"></span><span class="flip-new"></span></span><span class="colon">:</span><span class="flip-digit"><span class="flip-cur"></span><span class="flip-new"></span></span>';
-    var digits = t.querySelectorAll('.flip-digit');
-    for (var i = 0; i < digits.length; i++) digits[i].style.height = digits[i].getBoundingClientRect().height + 'px';
+    digits = t.querySelectorAll('.flip-digit');
+    txt = String(value);
+    if (txt.length !== digits.length) return false;
+    /* 首次：把数字直接填进可见层，new 层留空在槽底待命，不播放动画 */
+    for (i = 0; i < digits.length; i++) {
+      digits[i].querySelector('.flip-cur').textContent = txt.charAt(i);
+      digits[i].querySelector('.flip-new').textContent = txt.charAt(i);
+    }
+    /* 字体加载后高度才准，延迟一次校正槽高 */
+    setTimeout(function() {
+      for (i = 0; i < digits.length; i++) {
+        digits[i].style.height = digits[i].querySelector('.flip-cur').getBoundingClientRect().height + 'px';
+      }
+    }, 200);
+    flipReady = true;
+    return true;
   }
   function flipSet(value) {
+    if (!flipReady) return false;
     var t = el('time'), digits, i, cur, nw, txt;
-    if (!t || t.getAttribute('data-flip-init') !== '1') return false;
+    if (!t) return false;
     digits = t.querySelectorAll('.flip-digit');
     txt = String(value);
     if (txt.length !== digits.length) return false;
     for (i = 0; i < digits.length; i++) {
       cur = digits[i].querySelector('.flip-cur');
       nw = digits[i].querySelector('.flip-new');
-      if (nw.textContent !== txt.charAt(i)) {
-        /* 先把当前显示的字同步到 cur（上一轮动画结束时已交换），再翻 */
-        if (cur.textContent !== nw.textContent) cur.textContent = nw.textContent;
+      if (cur.textContent !== txt.charAt(i)) {
+        /* 新字填进 new 层（槽底），旧字仍在 cur 层（可见） */
         nw.textContent = txt.charAt(i);
         digits[i].classList.remove('flipping');
         void digits[i].offsetWidth;   /* 重启动画（iOS 12 Safari 可靠） */
         digits[i].classList.add('flipping');
         /* 动画结束后固化：cur 变成新字，new 复位待命 */
-        (function(node, curEl, nwEl) {
+        (function(node, curEl, nwEl, newVal) {
           setTimeout(function() {
             node.classList.remove('flipping');
-            curEl.textContent = nwEl.textContent;
-            nwEl.style.animation = 'none';
-            void nwEl.offsetWidth;
-            nwEl.style.animation = '';
+            curEl.textContent = newVal;
           }, 320);
-        })(digits[i], cur, nw);
+        })(digits[i], cur, nw, txt.charAt(i));
       }
     }
     return true;
   }
-  function nowClock() { var d=new Date(); if(state.followToday&&(state.selectedDate.getFullYear()!==d.getFullYear()||state.selectedDate.getMonth()!==d.getMonth()||state.selectedDate.getDate()!==d.getDate()))state.selectedDate=new Date(d.getFullYear(),d.getMonth(),d.getDate()); var hhmm=pad(d.getHours())+pad(d.getMinutes()); if(!flipSet(hhmm)){flipInit();flipSet(hhmm);if(!el('time').querySelector('.flip-digit'))el('time').innerHTML=hhmm;} el('seconds').textContent=pad(d.getSeconds()); el('date').textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日 星期'+weekdays[d.getDay()]; applyTheme(); renderCourses(); }
+  function nowClock() { var d=new Date(); if(state.followToday&&(state.selectedDate.getFullYear()!==d.getFullYear()||state.selectedDate.getMonth()!==d.getMonth()||state.selectedDate.getDate()!==d.getDate()))state.selectedDate=new Date(d.getFullYear(),d.getMonth(),d.getDate()); var hhmm=pad(d.getHours())+pad(d.getMinutes()); if(!flipSet(hhmm)){ flipInit(hhmm); } el('seconds').textContent=pad(d.getSeconds()); el('date').textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日 星期'+weekdays[d.getDay()]; applyTheme(); renderCourses(); }
   function timeToMinutes(value) { var match=String(value||'').match(/^(\d{1,2}):(\d{2})$/), hours, minutes; if(!match)return null;hours=parseInt(match[1],10);minutes=parseInt(match[2],10);return hours>=0&&hours<24&&minutes>=0&&minutes<60?hours*60+minutes:null; }
   function applyTheme() { var d=new Date(), sun=state.astronomy, now=d.getHours()*60+d.getMinutes(), dark=now<360||now>=1140, rise, set; if(sun && sun.sunrise && sun.sunset) { rise=timeToMinutes(sun.sunrise);set=timeToMinutes(sun.sunset);if(rise!==null&&set!==null)dark=now<rise||now>=set; } document.body.className=dark?'dark':''; }
   function icon(code) { code=String(code); if(code==='100')return '☀️'; if(code==='101'||code==='102'||code==='103')return '🌤️'; if(code.indexOf('3')===0)return '🌧️'; if(code.indexOf('4')===0)return '❄️'; if(code.indexOf('5')===0)return '🌫️'; if(code.indexOf('2')===0)return '💨'; return '☁️'; }
