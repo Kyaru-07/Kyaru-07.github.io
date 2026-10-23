@@ -44,16 +44,7 @@ body.dark {
   background-image: repeating-linear-gradient(to right, #111 0 2px, #0d0d0d 2px 3.6px);
 }
 
-/* ---------- 时钟区（锤子时钟 App：极细灯管字、灰阶、tabular 数字） ---------- */
-
-/* Inter ExtraLight（Figma 锤子 Kit 同款替代字体），仅数字用 */
-@font-face {
-  font-family: "Inter Clock";
-  src: url("fonts/inter-200.woff2") format("woff2");
-  font-weight: 200;
-  font-display: swap;
-}
-
+/* ---------- 时钟区（灰阶文字，不用纯黑；秒数用主色） ---------- */
 .clock-panel .topbar { color: var(--s-title); font-size: 16px; }
 #locationName { font-weight: 600; }
 
@@ -61,52 +52,9 @@ body.dark {
   color: var(--s-text);
   letter-spacing: -.02em;
   margin: 30px 8px 0 0;
-  font-weight: 200;
-  font-family: "Inter Clock", "Smartisan Compact", "Noto Sans CJK SC", "PingFang SC", sans-serif;
-  font-variant-numeric: tabular-nums;
 }
-.seconds { color: var(--s-accent); font-weight: 300; }
-.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; font-weight: 400; }
-
-/* 冒号呼吸（每秒轻明暗，smooth 曲线） */
-.time span.colon { animation: s-colon 1s cubic-bezier(.445,.05,.55,.95) infinite; }
-@keyframes s-colon {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .25; }
-}
-
-/* ---------- 翻牌数字：每个数字一个内凹槽，旧数字上滑出、新数字从下滑入 ---------- */
-.time .flip-digit {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;              /* 裁掉滑出槽外的字 */
-  vertical-align: top;
-  line-height: .9;               /* 与 .time 行高一致，撑满槽高 */
-  padding: 0 .02em;
-}
-/* 可见层：普通文本流，撑开槽的宽高 */
-.time .flip-digit .flip-cur {
-  display: inline;
-}
-/* 待命层：绝对定位盖在槽上，初始藏在槽底 */
-.time .flip-digit .flip-new {
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  transform: translateY(100%);
-}
-.time .flip-digit.flipping .flip-cur {
-  animation: flip-out .3s cubic-bezier(.4,0,1,1) forwards;
-}
-.time .flip-digit.flipping .flip-new {
-  animation: flip-in .3s cubic-bezier(0,0,.2,1) forwards;
-}
-@keyframes flip-out {
-  to { transform: translateY(-100%); }
-}
-@keyframes flip-in {
-  to { transform: translateY(0); }
-}
+.seconds { color: var(--s-accent); }
+.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; }
 
 /* ---------- 顶栏按钮：白色微渐变凸起小按钮，0.8px 细描边 ---------- */
 .topbar button,
@@ -157,49 +105,13 @@ body.dark .today-button:active { background: linear-gradient(to bottom, #161616,
 .muted, .csv-note, .loading, .empty { color: var(--s-muted); }
 .small { color: var(--s-faint); }
 
-/* ---------- 天气：锤子天气卡片（白底内凹卡、居中布局、分隔线规则） ---------- */
-.weather-inline {
-  margin-top: 24px;
-  max-width: 510px;
-  background: var(--s-panel);
-  border: .8px solid var(--s-line);
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  padding: 16px 18px 14px;
-}
-/* 原样式的负 margin 底纹需要抵消，卡片内自含 */
-.weather-scene { margin-left: 0; padding: 0; }
-.weather-scene:before, .weather-scene:after { display: none; }   /* 锤子天气不放场景动画，保持克制 */
-
-.weather-inline-title {
-  color: var(--s-title);
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-.weather-content { gap: 16px; }
-.weather-icon { font-size: 44px; }
-/* 温度：大号细字重，Inter 灯管感与时钟呼应 */
-.weather-temp {
-  color: var(--s-text);
-  font-weight: 200;
-  font-family: "Inter Clock", "Smartisan Compact", "Noto Sans CJK SC", sans-serif;
-  letter-spacing: -.03em;
-}
-.weather-detail { color: var(--s-muted); font-size: 14px; line-height: 1.6; }
-
-/* 三日预报：卡片内 0.8px 浅分隔线贯穿全宽，行内三段等分 */
-.forecast {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: .8px solid var(--s-divider);
-}
-.day { color: var(--s-faint); font-size: 12px; }
-.day strong { color: var(--s-text); font-size: 17px; font-weight: 400; margin: 4px 0 2px; }
-.day span { font-size: 21px; }
-/* 今天段用蓝点标记（唯一强调色），呼应锤子"一个选中态" */
-.day:first-child { color: var(--s-accent); }
-.day:first-child strong { color: var(--s-accent); }
+/* ---------- 天气行：灰阶 + 蓝色温度数字 ---------- */
+.weather-inline-title { color: var(--s-title); font-weight: 600; font-size: 16px; }
+.weather-detail { color: var(--s-muted); }
+.weather-temp { color: var(--s-text); font-weight: 400; }
+.day { color: var(--s-faint); font-size: 14px; }
+.day strong { color: var(--s-title); }
+.day span { color: var(--s-text); }
 
 /* ---------- 课表：行 60px 节奏、0.8px 浅分隔线、末行无线 ---------- */
 .course-toolbar { color: var(--s-muted); }
