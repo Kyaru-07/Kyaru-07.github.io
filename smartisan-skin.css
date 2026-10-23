@@ -44,7 +44,7 @@ body.dark {
   background-image: repeating-linear-gradient(to right, #111 0 2px, #0d0d0d 2px 3.6px);
 }
 
-/* ---------- 时钟区（灰阶，不用纯黑；主色只给秒数一个） ---------- */
+/* ---------- 时钟区（锤子时钟 App：极细灯管字、灰阶、tabular 数字） ---------- */
 .clock-panel .topbar { color: var(--s-title); font-size: 16px; }
 #locationName { font-weight: 600; }
 
@@ -52,9 +52,18 @@ body.dark {
   color: var(--s-text);
   letter-spacing: -.02em;
   margin: 30px 8px 0 0;
+  /* 锤子时钟是极细的字重，不用粗体 */
+  font-weight: 300;
+  /* 冒号呼吸：每秒轻微收放，代替秒针的存在感（平滑曲线） */
 }
-.seconds { color: var(--s-accent); }
-.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; }
+.time span.colon { animation: s-colon 1s cubic-bezier(.445,.05,.55,.95) infinite; }
+/* 冒号呼吸动画只在支持 JS 注入 span.colon 的浏览器生效；无 JS 时正常显示，无副作用 */
+@keyframes s-colon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .25; }
+}
+.seconds { color: var(--s-accent); font-weight: 300; }
+.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; font-weight: 400; }
 
 /* ---------- 顶栏按钮：白色微渐变凸起小按钮，0.8px 细描边 ---------- */
 .topbar button,
