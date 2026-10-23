@@ -1,0 +1,217 @@
+/* ============================================================
+   Smartisan OS 风格皮肤（覆盖 style.css）
+   token 依据 Smartisan OS UI Kit（真机 R2 校对）：
+   页面底 #f5f5f5（竖条纹）/ 正文 #333 / 标题按钮 #636363 /
+   副标题 #7f7f7f / 描边 0.8px #e2e2e2 / 主蓝 #5b87eb→#5883eb /
+   按下 #4772e6 / 圆角 10（卡片·大按钮）· 6（小按钮）· 12（对话框）
+   ============================================================ */
+
+:root {
+  --s-bg: #f5f5f5;
+  --s-panel: #ffffff;
+  --s-text: #333333;
+  --s-title: #636363;
+  --s-muted: #7f7f7f;
+  --s-faint: #9d9d9d;
+  --s-line: #e2e2e2;
+  --s-divider: #f2f2f2;
+  --s-accent: #5b87eb;
+  --s-accent-pressed: #4772e6;
+  --s-accent-border: #3f68e2;
+  --s-red: #cd3f3a;
+  --shadow: 0 10px 16px rgba(0, 0, 0, .04);
+}
+
+/* ---------- 页面底：真机设置页竖条纹（周期约 3.6px） ---------- */
+body {
+  color: var(--s-text);
+  font-family: "Smartisan Compact", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background-color: #f5f5f5;
+  background-image: repeating-linear-gradient(
+    to right,
+    #f4f4f4 0px, #f4f4f4 2px,
+    #f2f2f2 2px, #f2f2f2 3.6px
+  );
+}
+
+/* 暗色模式为推导值（Smartisan OS 无暗色），保持低对比 + 细描边逻辑 */
+body.dark {
+  --s-bg: #101010; --s-panel: #1c1c1c; --s-text: #d9d9d9; --s-title: #b2b2b2;
+  --s-muted: #8e8e8e; --s-faint: #6e6e6e; --s-line: #2c2c2c; --s-divider: #232323;
+  --s-accent: #5e80d0; --s-accent-pressed: #4772e6; --s-accent-border: #3f68e2;
+  --shadow: 0 10px 16px rgba(0, 0, 0, .28);
+  background-color: #101010;
+  background-image: repeating-linear-gradient(to right, #111 0 2px, #0d0d0d 2px 3.6px);
+}
+
+/* ---------- 时钟区（灰阶，不用纯黑；主色只给秒数一个） ---------- */
+.clock-panel .topbar { color: var(--s-title); font-size: 16px; }
+#locationName { font-weight: 600; }
+
+.time {
+  color: var(--s-text);
+  letter-spacing: -.02em;
+  margin: 30px 8px 0 0;
+}
+.seconds { color: var(--s-accent); }
+.date { color: var(--s-muted); margin-top: 18px; letter-spacing: .06em; }
+
+/* ---------- 顶栏按钮：白色微渐变凸起小按钮，0.8px 细描边 ---------- */
+.topbar button,
+.course-import-link,
+.today-button,
+.lyrics-top-btn {
+  background: linear-gradient(to bottom, #ffffff, #fcfcfc);
+  border: .8px solid var(--s-line);
+  border-radius: 6px;
+  color: var(--s-title);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  transition: none;
+}
+body.dark .topbar button,
+body.dark .course-import-link,
+body.dark .today-button {
+  background: linear-gradient(to bottom, #262626, #222);
+  border-color: var(--s-line);
+  color: var(--s-title);
+}
+/* 按下：渐变上下反转（顶部变暗，像被按进去），瞬时无淡入 */
+.topbar button:active,
+.course-import-link:active,
+.today-button:active {
+  background: linear-gradient(to bottom, #ececec, #f4f4f4);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, .08);
+}
+body.dark .topbar button:active,
+body.dark .course-import-link:active,
+body.dark .today-button:active { background: linear-gradient(to bottom, #161616, #1e1e1e); }
+
+/* ---------- 内容卡片：白底、圆角 10、0.8px 描边、极淡大范围投影 ---------- */
+.info-grid .card {
+  background: var(--s-panel);
+  border: .8px solid var(--s-line);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 18px 18px 14px;
+}
+.courses-card { height: auto; min-height: 315px; }
+.bandori-card { height: 190px; }
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--s-title);
+  margin-bottom: 12px;
+}
+.muted, .csv-note, .loading, .empty { color: var(--s-muted); }
+.small { color: var(--s-faint); }
+
+/* ---------- 天气行：灰阶 + 蓝色温度数字 ---------- */
+.weather-inline-title { color: var(--s-title); font-weight: 600; font-size: 16px; }
+.weather-detail { color: var(--s-muted); }
+.weather-temp { color: var(--s-text); font-weight: 400; }
+.day { color: var(--s-faint); font-size: 14px; }
+.day strong { color: var(--s-title); }
+.day span { color: var(--s-text); }
+
+/* ---------- 课表：行 60px 节奏、0.8px 浅分隔线、末行无线 ---------- */
+.course-toolbar { color: var(--s-muted); }
+.day-nav { color: var(--s-accent); font-size: 22px; padding: 0 8px; transition: none; }
+.day-nav:active { color: var(--s-accent-pressed); }
+.today-button { font-size: 14px; color: var(--s-title); padding: 6px 10px; }
+
+.course-list { max-height: 250px; }
+.course { padding: 13px 0; border-bottom: .8px solid var(--s-divider); }
+.course:last-child { border-bottom: 0; }
+.course-time { color: var(--s-accent); font-size: 16px; }
+.course-name { font-size: 18px; color: var(--s-text); }
+.course-place { color: var(--s-muted); font-size: 14px; }
+.course-countdown strong { color: var(--s-text); font-weight: 700; }
+.course-countdown span { color: var(--s-faint); }
+.course-countdown.pending { color: #e5645a; }   /* 锤子红图标色 */
+.course-countdown.ongoing { color: var(--s-accent); }
+
+.bandori-hero { border-radius: 10px; }
+.bandori-name { font-weight: 700; }
+.bandori-link { color: var(--s-accent); }
+
+/* ---------- 弹窗：Smartisan 对话框（圆角 12、居中标题、按钮 54px） ---------- */
+.modal { background: rgba(0, 0, 0, .6); }   /* [R2] 录屏实测遮罩 .6 */
+.modal-box {
+  border-radius: 12px;
+  background: var(--s-panel);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .12);
+  border: .8px solid var(--s-line);
+  padding: 24px;
+}
+.modal-box h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--s-text);
+  text-align: center;
+  margin: 4px 0 14px;
+}
+.modal-box h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--s-title);
+  margin-top: 24px;
+}
+.modal-box p { color: var(--s-muted); }
+.modal-box a { color: var(--s-accent); }
+
+.modal-box input, .modal-box textarea {
+  border: .8px solid var(--s-line);
+  background: var(--s-panel);
+  color: var(--s-text);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .04);
+}
+body.dark .modal-box input, body.dark .modal-box textarea { background: #161616; }
+.modal-box input:focus, .modal-box textarea:focus {
+  outline: none;
+  border-color: var(--s-accent);
+}
+
+.close { color: var(--s-faint); font-size: 24px; top: 10px; }
+
+/* 对话框按钮组：底部按钮底 #f7f7f7、按下 #dfdfdf、主操作蓝字在最右 */
+.modal-actions { gap: 0; margin: 22px -24px -24px; border-top: .8px solid var(--s-divider); }
+.modal-actions button {
+  flex: 1;
+  border: 0;
+  border-radius: 0;
+  min-height: 54px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #f7f7f7;
+  color: var(--s-title);
+  box-shadow: none;
+  transition: none;
+}
+body.dark .modal-actions button { background: #202020; color: var(--s-title); }
+.modal-actions button + button { border-left: .8px solid var(--s-divider); }
+.modal-actions button:active { background: #dfdfdf; }
+body.dark .modal-actions button:active { background: #161616; }
+.modal-actions button.secondary { color: #999; }
+/* 主操作（保存 / 开闸）蓝 #5e80d0，自然排到最右侧 */
+.modal-actions #saveSettings,
+.modal-actions #importCourseHtml,
+.modal-actions #waterOpenButton { color: #5e80d0; order: 2; }
+.modal-actions .secondary, .modal-actions #clearCourses { order: 1; }
+.modal-actions #waterFinishButton { color: #999; }
+#dismissAlert {
+  border: 0; border-radius: 8px; background: #ffffff; color: var(--s-red);
+  font-weight: 600; padding: 12px 22px; transition: none;
+}
+#dismissAlert:active { background: #e8e8e8; }
+
+/* ---------- 天气预警全屏：锤子红 App Bar 渐变 ---------- */
+.alert-overlay {
+  background: linear-gradient(to bottom, #cd3f3a, #c83530);
+}
+#dismissAlert { box-shadow: 0 4px 10px rgba(0, 0, 0, .18); }
+
+/* ---------- 歌词全屏页：保持沉浸，仅统一强调色 ---------- */
+.lyrics-overlay { background: #14171a; }
+.lyrics-song-title { font-weight: 700; }
