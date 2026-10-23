@@ -162,13 +162,49 @@ body.dark .today-button:active { background: linear-gradient(to bottom, #161616,
 .muted, .csv-note, .loading, .empty { color: var(--s-muted); }
 .small { color: var(--s-faint); }
 
-/* ---------- 天气行：灰阶 + 蓝色温度数字 ---------- */
-.weather-inline-title { color: var(--s-title); font-weight: 600; font-size: 16px; }
-.weather-detail { color: var(--s-muted); }
-.weather-temp { color: var(--s-text); font-weight: 400; }
-.day { color: var(--s-faint); font-size: 14px; }
-.day strong { color: var(--s-title); }
-.day span { color: var(--s-text); }
+/* ---------- 天气：锤子天气卡片（白底内凹卡、居中布局、分隔线规则） ---------- */
+.weather-inline {
+  margin-top: 24px;
+  max-width: 510px;
+  background: var(--s-panel);
+  border: .8px solid var(--s-line);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 16px 18px 14px;
+}
+/* 原样式的负 margin 底纹需要抵消，卡片内自含 */
+.weather-scene { margin-left: 0; padding: 0; }
+.weather-scene:before, .weather-scene:after { display: none; }   /* 锤子天气不放场景动画，保持克制 */
+
+.weather-inline-title {
+  color: var(--s-title);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.weather-content { gap: 16px; }
+.weather-icon { font-size: 44px; }
+/* 温度：大号细字重，Inter 灯管感与时钟呼应 */
+.weather-temp {
+  color: var(--s-text);
+  font-weight: 200;
+  font-family: "Inter Clock", "Smartisan Compact", "Noto Sans CJK SC", sans-serif;
+  letter-spacing: -.03em;
+}
+.weather-detail { color: var(--s-muted); font-size: 14px; line-height: 1.6; }
+
+/* 三日预报：卡片内 0.8px 浅分隔线贯穿全宽，行内三段等分 */
+.forecast {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: .8px solid var(--s-divider);
+}
+.day { color: var(--s-faint); font-size: 12px; }
+.day strong { color: var(--s-text); font-size: 17px; font-weight: 400; margin: 4px 0 2px; }
+.day span { font-size: 21px; }
+/* 今天段用蓝点标记（唯一强调色），呼应锤子"一个选中态" */
+.day:first-child { color: var(--s-accent); }
+.day:first-child strong { color: var(--s-accent); }
 
 /* ---------- 课表：行 60px 节奏、0.8px 浅分隔线、末行无线 ---------- */
 .course-toolbar { color: var(--s-muted); }
