@@ -137,7 +137,8 @@ body.dark .today-button:active { background: linear-gradient(to bottom, #161616,
 /* ---------- 弹窗：Smartisan 对话框（圆角 12、居中标题、按钮 54px） ---------- */
 .modal {
   background: rgba(0, 0, 0, .6);   /* [R2] 录屏实测遮罩 .6 */
-  display: flex;
+  /* app.js 的 showModal() 会写行内 display:block，必须用 !important 压回 flex 居中 */
+  display: flex !important;
   align-items: center;
   justify-content: center;
   padding: 24px;
